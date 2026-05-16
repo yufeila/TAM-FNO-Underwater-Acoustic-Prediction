@@ -2,7 +2,7 @@
 
 Code release for **TAM-FNO**, a time-adaptive modulated Fourier Neural Operator for underwater acoustic transmission-loss prediction from sound-speed profiles.
 
-This repository is organized for reproducible academic use. It contains only the TAM-FNO implementation and its preprocessing, training, evaluation, and GitHub Pages site. It intentionally does **not** contain comparison-model code, experimental data, checkpoints, logs, normalizers, tests, or generated result archives.
+This repository is organized for reproducible academic use. It contains the TAM-FNO implementation, preprocessing utilities, training and evaluation entry points, and the GitHub Pages site. Comparison-model code, experimental data, checkpoints, logs, normalizers, tests, and generated result archives are kept outside version control.
 
 ## Repository Layout
 

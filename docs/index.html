@@ -143,6 +143,21 @@
         margin-top: 16px;
       }
 
+      .content h3 {
+        margin: 28px 0 8px;
+        font-size: 1.18rem;
+        font-weight: 740;
+      }
+
+      .equation {
+        margin: 14px 0;
+        overflow-x: auto;
+      }
+
+      .equation mjx-container {
+        margin: 0 !important;
+      }
+
       .figure {
         margin: 24px auto 0;
         max-width: 1120px;
@@ -194,6 +209,18 @@
         }
       }
     </style>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: {
+          fontCache: "global"
+        }
+      };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   </head>
   <body>
     <header class="publication-header">
@@ -271,17 +298,68 @@
         <div class="container">
           <h2 class="section-title">Method</h2>
           <div class="content">
+            <h3>TAM-FNO Architecture</h3>
             <p>
               TAM-FNO follows a dual-track design. The spatial branch processes the sound-speed field through a Fourier Neural Operator backbone, while the temporal branch transforms the raw time index into a periodic descriptor. The temporal descriptor generates modulation terms that adapt intermediate feature channels inside the FNO blocks.
             </p>
             <p>
-              The spatial branch receives the sound-speed field as a two-dimensional input over range and depth. A lifting layer maps this input to a latent tensor, and the backbone then propagates it through four TAM-FNO blocks. Each block combines spectral convolution, local residual mixing, and temporal modulation.
+              The spatial branch receives the sound-speed field as a two-dimensional input over range and depth. A lifting layer maps this input to a latent tensor \(F_0\), and the main backbone then propagates \(F_0\) through four TAM-FNO blocks. Each block combines spectral convolution, local residual mixing, and temporal affine modulation before the final projection layer maps the latent field to the transmission-loss prediction.
+            </p>
+            <h3>Multi-frequency Fourier Temporal Encoding</h3>
+            <p>
+              The temporal branch does not place time directly onto the spatial grid. Instead, it maps the raw time index \(t\) to a periodic Fourier descriptor \(\phi(t)\). Let \(N_d\) be the number of samples in one day and \(N_y\) be the number of samples in one year. The daily and annual components are encoded as:
+            </p>
+            <div class="equation">
+              \[
+              \mathbf{f}_{\mathrm{day}}(t)=
+              \left[
+                \sin\left(2\pi k\frac{t \bmod N_d}{N_d}\right),
+                \cos\left(2\pi k\frac{t \bmod N_d}{N_d}\right)
+              \right]_{k=1}^{K_d}
+              \]
+            </div>
+            <div class="equation">
+              \[
+              \mathbf{f}_{\mathrm{year}}(t)=
+              \left[
+                \sin\left(2\pi k\frac{t}{N_y}\right),
+                \cos\left(2\pi k\frac{t}{N_y}\right)
+              \right]_{k=1}^{K_y}
+              \]
+            </div>
+            <div class="equation">
+              \[
+              \phi(t)=
+              \left[
+                \mathbf{f}_{\mathrm{day}}(t),
+                \mathbf{f}_{\mathrm{year}}(t)
+              \right]
+              \]
+            </div>
+            <p>
+              In the paper setting, \(N_d=8\), \(N_y=2920\), \(K_d=4\), and \(K_y=8\). This produces a 24-dimensional temporal descriptor: 8 channels for diurnal variation and 16 channels for annual variation.
+            </p>
+            <h3>Temporally Affine Modulation</h3>
+            <p>
+              The encoded descriptor \(\phi(t)\) is sent to a temporal MLP generator. For each TAM-FNO block, the generator produces a channel-wise scale term \(\gamma(t)\) and a channel-wise shift term \(\beta(t)\). After spectral convolution and local residual mixing produce an intermediate spatial feature \(\hat{F}\), the temporal terms modulate the feature channels as:
+            </p>
+            <div class="equation">
+              \[
+              F_{\mathrm{out}} =
+              \mathrm{GELU}\left(
+                \hat{F}\odot\left(1+\gamma(t)\right)+\beta(t)
+              \right)
+              \]
+            </div>
+            <p>
+              Here, \(\hat{F}\) mainly carries spatial wave-field information, \(\gamma(t)\) reweights feature channels under different temporal states, and \(\beta(t)\) shifts the latent baseline. The residual form \(1+\gamma(t)\) also lets the model behave like a standard 2D-FNO at initialization, which makes training more stable.
+            </p>
+            <h3>Training and Inference</h3>
+            <p>
+              During training, each sound-speed field and its time index are processed together. The spatial branch extracts latent field features, the temporal branch generates block-wise affine modulation terms, and the whole network is optimized against the reference transmission-loss field. The input and output fields are normalized using training-set statistics only.
             </p>
             <p>
-              The temporal branch does not place time directly onto the spatial grid. Instead, it encodes the raw time index with multi-frequency Fourier features. In the implementation used in the paper, the descriptor contains daily and annual components, giving the model access to both diurnal and seasonal variation.
-            </p>
-            <p>
-              A small MLP turns the temporal descriptor into channel-wise scale and shift terms. These terms modulate the spatial feature channels as F_out = GELU(F_hat * (1 + gamma(t)) + beta(t)). This lets time steer the learned acoustic operator while keeping the spatial input pathway clean.
+              During inference, a new sound-speed field and its associated time index pass through the same two-branch pipeline. The model then produces a transmission-loss field in one forward pass, avoiding repeated RAM simulations for each time-varying ocean condition.
             </p>
           </div>
           <figure class="figure architecture">

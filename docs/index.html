@@ -42,31 +42,12 @@
         color: inherit;
       }
 
-      .hero {
-        min-height: 86svh;
-        position: relative;
-        display: flex;
-        align-items: flex-end;
-        background-color: #dce7e8;
-        background-image: url("assets/architecture.png");
-        background-size: cover;
-        background-position: center top;
+      .site-header {
         border-bottom: 1px solid var(--line);
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(247, 244, 236, 0.86);
+        background: var(--paper);
       }
 
       .topnav {
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        left: 0;
-        right: 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -85,63 +66,6 @@
 
       .topnav a {
         text-decoration: none;
-      }
-
-      .hero-inner {
-        position: relative;
-        z-index: 1;
-        width: min(1160px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 128px 0 64px;
-      }
-
-      .kicker {
-        margin: 0;
-        color: var(--rust);
-        font-size: 0.82rem;
-        font-weight: 800;
-        letter-spacing: 0;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        max-width: 920px;
-        margin: 14px 0 20px;
-        font-size: clamp(2.55rem, 8vw, 6.4rem);
-        line-height: 0.96;
-        letter-spacing: 0;
-      }
-
-      .lead {
-        max-width: 760px;
-        margin: 0;
-        color: #26332f;
-        font-size: clamp(1.05rem, 2.1vw, 1.28rem);
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 30px;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
-        padding: 0 18px;
-        border: 1px solid var(--ink);
-        background: var(--ink);
-        color: var(--white);
-        font-weight: 800;
-        text-decoration: none;
-      }
-
-      .button.secondary {
-        background: transparent;
-        color: var(--ink);
       }
 
       main {
@@ -407,37 +331,23 @@
           padding: 52px 0;
         }
 
-        .hero {
-          min-height: 84svh;
-        }
       }
 
       @media (max-width: 520px) {
         .topnav {
           width: min(100% - 28px, 1160px);
           flex-direction: column;
-          padding-top: 18px;
         }
 
-        .hero-inner,
         main,
         footer {
           width: min(100% - 28px, 1160px);
-        }
-
-        .hero-inner {
-          padding-bottom: 44px;
-        }
-
-        .actions {
-          flex-direction: column;
-          align-items: stretch;
         }
       }
     </style>
   </head>
   <body>
-    <header class="hero">
+    <header class="site-header">
       <nav class="topnav" aria-label="Primary">
         <a href="#">TAM-FNO</a>
         <div class="links">
@@ -447,17 +357,6 @@
           <a href="https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction">Code</a>
         </div>
       </nav>
-      <div class="hero-inner">
-        <p class="kicker">Time-adaptive neural operator for underwater acoustics</p>
-        <h1>TAM-FNO Underwater Acoustic Prediction</h1>
-        <p class="lead">
-          TAM-FNO learns how a time-varying ocean environment changes acoustic transmission loss. This page gives a reader-friendly overview of the problem, the method, and the experimental takeaway.
-        </p>
-        <div class="actions">
-          <a class="button" href="#method">See the Method</a>
-          <a class="button secondary" href="#results">View Results</a>
-        </div>
-      </div>
     </header>
 
     <main>

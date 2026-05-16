@@ -118,62 +118,17 @@
         font-size: clamp(1rem, 1.8vw, 1.16rem);
       }
 
-      .plain-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
+      .body-copy {
+        max-width: 900px;
       }
 
-      .point {
-        padding: 20px;
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: 8px;
+      .body-copy p {
+        color: #2b3834;
+        font-size: clamp(1rem, 1.8vw, 1.16rem);
       }
 
-      .point .tag {
-        display: inline-block;
-        margin-bottom: 12px;
-        color: var(--rust);
-        font-size: 0.78rem;
-        font-weight: 850;
-        text-transform: uppercase;
-      }
-
-      .point p {
-        color: var(--muted);
-      }
-
-      .problem {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.75fr);
-        gap: 28px;
-        align-items: stretch;
-      }
-
-      .equation {
-        display: grid;
-        place-items: center;
-        min-height: 220px;
-        padding: 28px;
-        background: #12231f;
-        color: var(--white);
-        border-radius: 8px;
-        text-align: center;
-      }
-
-      .equation strong {
-        display: block;
-        margin-bottom: 12px;
-        color: #f1d68c;
-        font-size: 0.86rem;
-        text-transform: uppercase;
-      }
-
-      .equation code {
-        display: block;
-        font-size: clamp(1.18rem, 2.4vw, 1.9rem);
-        white-space: normal;
+      .body-copy p + p {
+        margin-top: 18px;
       }
 
       .method-grid {
@@ -316,13 +271,11 @@
         }
 
         .section-head,
-        .problem,
         .results,
         .repo {
           grid-template-columns: 1fr;
         }
 
-        .plain-grid,
         .method-grid {
           grid-template-columns: 1fr;
         }
@@ -375,30 +328,13 @@
           <p class="label">Problem Statement</p>
           <h2>Learn the map from sound speed and time to transmission loss.</h2>
         </div>
-        <div class="problem">
-          <div class="plain-grid">
-            <div class="point">
-              <span class="tag">Input</span>
-              <h3>Sound-speed profile</h3>
-              <p>The model receives environmental sound-speed information, represented on a grid compatible with the target acoustic field.</p>
-            </div>
-            <div class="point">
-              <span class="tag">Condition</span>
-              <h3>Time index</h3>
-              <p>A raw time index is encoded with multi-frequency Fourier features so the network can respond to daily and seasonal variation.</p>
-            </div>
-            <div class="point">
-              <span class="tag">Output</span>
-              <h3>Transmission-loss field</h3>
-              <p>The prediction is a two-dimensional acoustic transmission-loss map over range and depth.</p>
-            </div>
-          </div>
-          <div class="equation" aria-label="Problem mapping">
-            <div>
-              <strong>Surrogate mapping</strong>
-              <code>(SSP, time) -&gt; TL(range, depth)</code>
-            </div>
-          </div>
+        <div class="body-copy">
+          <p>
+            Given a sound-speed profile and its associated time index, the goal is to predict the corresponding acoustic transmission-loss field over range and depth. The sound-speed profile describes the environmental state of the ocean, while the time index carries information about daily and seasonal variation.
+          </p>
+          <p>
+            In operator-learning terms, the task is to learn a time-parameterized mapping from sound-speed information to transmission loss. TAM-FNO treats time as a conditioning variable rather than simply appending it to the spatial input, so the model can adapt its prediction as the ocean state changes.
+          </p>
         </div>
       </section>
 

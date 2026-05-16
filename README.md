@@ -8,7 +8,7 @@ This repository is organized for reproducible academic use. It contains only the
 
 ```text
 src/tam_fno/                 Core package: model, data utilities, time encoding, training helpers
-src/tam_fno/scripts/         TAM-FNO training, evaluation, and visualization scripts
+src/tam_fno/scripts/         Minimal TAM-FNO training and evaluation entry points
 scripts/                     Preprocessing and TAM-FNO shell helpers
 tests/                       Lightweight smoke tests
 data/                        Local generated data directory, ignored except README
@@ -68,11 +68,9 @@ bash scripts/train_tam_fno.sh --epochs 100 --device cuda
 
 ```bash
 python -m tam_fno.scripts.evaluate
-python -m tam_fno.scripts.plot_rmse_curve
-python -m tam_fno.scripts.visualize_perturbation
 ```
 
-Model checkpoints and generated figures are ignored by default. Pass explicit paths if your artifacts are stored elsewhere.
+Model checkpoints and generated outputs are ignored by default. Pass explicit paths if your artifacts are stored elsewhere.
 
 ## Tests
 

@@ -39,6 +39,7 @@ checkpoints/
 tmp/
 
 # Local tools
+REPOSITORY_STRUCTURE.md
 graphify-out/
 .graphify_*
 .DS_Store

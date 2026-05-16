@@ -7,7 +7,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from .tam_fno_config import (
+from tam_fno_config import (
     DEFAULT_SPLIT_SEED,
     NTEST,
     NTRAIN,
@@ -17,7 +17,7 @@ from .tam_fno_config import (
     TL_HEIGHT,
     TL_WIDTH,
 )
-from .tam_fno_split import ensure_split_manifest, load_split_manifest
+from tam_fno_split import ensure_split_manifest, load_split_manifest
 
 
 def load_raw_mat_dataset(mat_path: Path, dataset_name: str) -> np.ndarray:
@@ -115,7 +115,7 @@ def load_preprocessed_split(
     test_x_path: Path,
     test_y_path: Path,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
-    from .io_mat import MatReader
+    from io_mat import MatReader
 
     x_train = MatReader(str(train_x_path)).read_field("train_x")
     y_train = MatReader(str(train_y_path)).read_field("train_y")

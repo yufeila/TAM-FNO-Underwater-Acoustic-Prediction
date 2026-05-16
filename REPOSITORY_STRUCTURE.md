@@ -10,14 +10,14 @@
 
 ### `src/`
 
-核心代码目录。必须保留。
+ 核心代码目录。必须保留。
 
-其中 `src/tam_fno/` 是 TAM-FNO 的 Python 包，包含模型文件 `tam_fno_model.py`、数据读取、时间特征、归一化、训练逻辑等代码。
+其中 `src/` 直接存放 TAM-FNO 的核心 Python 文件，包括 `tam_fno_model.py`、数据读取、时间特征、归一化、训练逻辑等代码。
 
-TAM-FNO 的最小复现脚本也放在 `src/tam_fno/scripts/` 下，例如：
+TAM-FNO 的最小复现脚本放在 `src/scripts/` 下，例如：
 
-- `src/tam_fno/scripts/train.py`
-- `src/tam_fno/scripts/evaluate.py`
+- `src/scripts/train.py`
+- `src/scripts/evaluate.py`
 
 不再保留顶层 `experiments/` 目录。
 

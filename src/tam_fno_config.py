@@ -41,7 +41,7 @@ def find_project_root(start: Path | None = None) -> Path:
         probe = probe.parent
 
     for candidate in [probe, *probe.parents]:
-        if (candidate / "src" / "tam_fno").exists() and (candidate / "pyproject.toml").exists():
+        if (candidate / "src" / "tam_fno_model.py").exists() and (candidate / "pyproject.toml").exists():
             return candidate
 
     raise RuntimeError(f"Cannot find FNO project root from {start or __file__}")

@@ -4,12 +4,12 @@ import sys
 from pathlib import Path
 
 # Add project root to sys.path
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(PROJECT_ROOT / "src"))
 
-from tam_fno.io_mat import MatReader
-from tam_fno.normalizer import UnitGaussianNormalizer
-from tam_fno.tam_fno_model import FNO2d_FiLM
+from io_mat import MatReader
+from normalizer import UnitGaussianNormalizer
+from tam_fno_model import FNO2d_FiLM
 
 def month_from_global_idx(global_idx: np.ndarray, samples_per_day: int = 8) -> np.ndarray:
     month_days = np.array([31,28,31,30,31,30,31,31,30,31,30,31], dtype=int)

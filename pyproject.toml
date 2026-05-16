@@ -42,5 +42,15 @@ dependencies = [
 Homepage = "https://yufeila.github.io/TAM-FNO-Underwater-Acoustic-Prediction/"
 Repository = "https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = [
+  "io_mat",
+  "normalizer",
+  "tam_fno_config",
+  "tam_fno_data",
+  "tam_fno_model",
+  "tam_fno_split",
+  "tam_fno_time",
+  "tam_fno_train"
+]

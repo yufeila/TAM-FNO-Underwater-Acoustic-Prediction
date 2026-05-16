@@ -9,8 +9,8 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from tam_fno.tam_fno_config import get_project_paths
-from tam_fno.tam_fno_data import preprocess_raw_data
+from tam_fno_config import get_project_paths
+from tam_fno_data import preprocess_raw_data
 
 
 def main() -> None:

@@ -7,8 +7,8 @@ This repository is organized for reproducible academic use. It contains only the
 ## Repository Layout
 
 ```text
-src/tam_fno/                 Core package: model, data utilities, time encoding, training helpers
-src/tam_fno/scripts/         Minimal TAM-FNO training and evaluation entry points
+src/                         TAM-FNO core modules: model, data utilities, time encoding, training helpers
+src/scripts/                 Minimal TAM-FNO training and evaluation entry points
 scripts/                     Preprocessing and TAM-FNO shell helpers
 docs/                        Static GitHub Pages site
 ```
@@ -53,7 +53,7 @@ Preprocessing writes generated train/test files under `data/`, which is ignored.
 Run TAM-FNO directly:
 
 ```bash
-python -m tam_fno.scripts.train --epochs 100 --device cuda
+python src/scripts/train.py --epochs 100 --device cuda
 ```
 
 Or use the shell helper:
@@ -65,7 +65,7 @@ bash scripts/train_tam_fno.sh --epochs 100 --device cuda
 ## Evaluation
 
 ```bash
-python -m tam_fno.scripts.evaluate
+python src/scripts/evaluate.py
 ```
 
 Model checkpoints and generated outputs are ignored by default. Pass explicit paths if your artifacts are stored elsewhere.

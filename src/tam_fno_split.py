@@ -4,7 +4,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .tam_fno_config import DEFAULT_SPLIT_SEED, NTEST, NTOTAL, NTRAIN
+from tam_fno_config import DEFAULT_SPLIT_SEED, NTEST, NTOTAL, NTRAIN
 
 
 def build_split_indices(

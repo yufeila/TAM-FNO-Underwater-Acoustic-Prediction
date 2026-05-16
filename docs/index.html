@@ -241,8 +241,8 @@ python scripts/preprocess_data.py \
   --raw-tl /path/to/TL.mat \
   --raw-ssp /path/to/SSP.mat
 
-python -m tam_fno.scripts.train --epochs 100 --device cuda
-python -m tam_fno.scripts.evaluate</code></pre>
+python src/scripts/train.py --epochs 100 --device cuda
+python src/scripts/evaluate.py</code></pre>
         </div>
         <div>
           <h2>Data Policy</h2>
@@ -258,7 +258,7 @@ python -m tam_fno.scripts.evaluate</code></pre>
       <section>
         <h2>Repository</h2>
         <p>
-          The code follows a standard academic layout with a package under <code>src/tam_fno</code>, runnable scripts under <code>experiments</code> and <code>scripts</code>, smoke tests under <code>tests</code>, and this static site under <code>docs</code>.
+          The repository keeps TAM-FNO core modules directly under <code>src</code>, minimal training and evaluation entry points under <code>src/scripts</code>, helper commands under <code>scripts</code>, and this static site under <code>docs</code>.
         </p>
       </section>
     </main>

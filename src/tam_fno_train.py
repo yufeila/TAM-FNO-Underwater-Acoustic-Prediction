@@ -11,9 +11,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from .tam_fno_model import FNO2d_FiLM, H1Loss, LpLoss
-from .normalizer import UnitGaussianNormalizer, load_normalizers, save_normalizers
-from .tam_fno_config import (
+from tam_fno_model import FNO2d_FiLM, H1Loss, LpLoss
+from normalizer import UnitGaussianNormalizer, load_normalizers, save_normalizers
+from tam_fno_config import (
     DEFAULT_BATCH_SIZE,
     DEFAULT_EPOCHS,
     DEFAULT_GAMMA,
@@ -26,9 +26,9 @@ from .tam_fno_config import (
     TIME_FEATURE_DIM,
     get_project_paths,
 )
-from .tam_fno_data import load_preprocessed_split
-from .tam_fno_split import load_split_manifest
-from .tam_fno_time import build_time_feature_vector
+from tam_fno_data import load_preprocessed_split
+from tam_fno_split import load_split_manifest
+from tam_fno_time import build_time_feature_vector
 
 MODEL_FILENAME = "model_tam_fno.pth"
 DEFAULT_RESULT_DIR = "runs/modes1_32_modes2_128_epoch_100"

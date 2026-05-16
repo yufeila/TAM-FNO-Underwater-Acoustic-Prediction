@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import torch
 
-from .tam_fno_config import (
+from tam_fno_config import (
     NTOTAL,
     SAMPLES_PER_DAY,
     TIME_DAY_HARMONICS,

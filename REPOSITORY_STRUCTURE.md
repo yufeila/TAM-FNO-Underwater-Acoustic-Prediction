@@ -14,17 +14,20 @@
 
 其中 `src/tam_fno/` 是 TAM-FNO 的 Python 包，包含模型文件 `tam_fno_model.py`、数据读取、时间特征、归一化、训练逻辑等代码。
 
-### `experiments/`
+TAM-FNO 的训练、评估和可视化 Python 脚本也放在 `src/tam_fno/scripts/` 下，例如：
 
-实验入口目录。建议保留。
+- `src/tam_fno/scripts/train.py`
+- `src/tam_fno/scripts/evaluate.py`
+- `src/tam_fno/scripts/plot_rmse_curve.py`
+- `src/tam_fno/scripts/visualize_*.py`
 
-当前只应保留 `experiments/tam_fno/`，也就是 TAM-FNO 的训练、评估和可视化脚本。其他 baseline、对比模型、旧实验目录不应保留。
+不再保留顶层 `experiments/` 目录。
 
 ### `scripts/`
 
-常用命令脚本。建议保留。
+顶层命令脚本。建议保留。
 
-应只保留和 TAM-FNO 直接相关的脚本，例如：
+这里不放 Python 实验代码，只放很薄的 shell 入口，例如：
 
 - `scripts/preprocess_data.py`
 - `scripts/train_tam_fno.sh`

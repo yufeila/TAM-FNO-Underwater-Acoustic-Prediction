@@ -134,7 +134,7 @@ def main(argv: list[str] | None = None) -> None:
     out_dir = (
         Path(args.out_dir)
         if args.out_dir
-        else PROJECT_ROOT / "experiments" / "tam_fno" / "runs" / "modes1_32_modes2_128_epoch_100"
+        else PROJECT_ROOT / "runs" / "modes1_32_modes2_128_epoch_100"
     )
     manuscript_dir = Path(args.manuscript_dir) if args.manuscript_dir else None
     out_dir.mkdir(parents=True, exist_ok=True)

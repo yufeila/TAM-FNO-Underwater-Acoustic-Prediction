@@ -241,8 +241,8 @@ python scripts/preprocess_data.py \
   --raw-tl /path/to/TL.mat \
   --raw-ssp /path/to/SSP.mat
 
-python experiments/tam_fno/train.py --epochs 100 --device cuda
-python experiments/tam_fno/evaluate.py</code></pre>
+python -m tam_fno.scripts.train --epochs 100 --device cuda
+python -m tam_fno.scripts.evaluate</code></pre>
         </div>
         <div>
           <h2>Data Policy</h2>

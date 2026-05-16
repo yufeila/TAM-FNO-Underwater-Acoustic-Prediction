@@ -7,7 +7,7 @@ from pathlib import Path
 
 # Add project root to sys.path to allow importing from src
 SCRIPT_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = SCRIPT_DIR.parents[1]
+PROJECT_ROOT = SCRIPT_DIR.parents[2]
 sys.path.append(str(PROJECT_ROOT / "src"))
 
 from tam_fno.io_mat import MatReader
@@ -75,7 +75,7 @@ def main():
     DATA_DIR = PROJECT_ROOT / "data"
     TEST_X_PATH  = DATA_DIR / "interp_test_x_SSP_TLshape_ndrz10.mat"
     NORM_PATH = PROJECT_ROOT / "normalizers" / "ssp_tl_norm_train2336_ndrz10.pt"
-    MODEL_PATH = SCRIPT_DIR / "runs" / "modes1_32_modes2_128_epoch_100" / "model_tam_fno.pth"
+    MODEL_PATH = PROJECT_ROOT / "runs" / "modes1_32_modes2_128_epoch_100" / "model_tam_fno.pth"
     
     modes1, modes2, width, time_dim = 32, 128, 64, 24
     model = FNO2d_FiLM(modes1, modes2, width, time_dim=time_dim).to(device)
@@ -163,7 +163,7 @@ def main():
         
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     
-    save_path = SCRIPT_DIR / "runs" / "modes1_32_modes2_128_epoch_100" / "decoupling_progression.png"
+    save_path = PROJECT_ROOT / "runs" / "modes1_32_modes2_128_epoch_100" / "decoupling_progression.png"
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     print(f"✅ Visualization saved to {save_path}")
 

@@ -8,7 +8,7 @@ from pathlib import Path
 
 # Add project root to sys.path to allow importing from src
 SCRIPT_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = SCRIPT_DIR.parents[1]
+PROJECT_ROOT = SCRIPT_DIR.parents[2]
 sys.path.append(str(PROJECT_ROOT / "src"))
 
 from tam_fno.tam_fno_model import FNO2d_FiLM
@@ -43,7 +43,7 @@ def main():
     model = FNO2d_FiLM(modes1, modes2, width, time_dim=time_dim).to(device)
     
     # Load weights
-    model_path = SCRIPT_DIR / "runs" / "modes1_32_modes2_128_epoch_100" / "model_tam_fno.pth"
+    model_path = PROJECT_ROOT / "runs" / "modes1_32_modes2_128_epoch_100" / "model_tam_fno.pth"
     if not model_path.exists():
         print(f"Model weights not found at {model_path}!")
         print("Please ensure the model is trained and weights are available.")
@@ -102,7 +102,7 @@ def main():
     plt.legend()
     
     # Save the figure
-    save_path = SCRIPT_DIR / "runs" / "modes1_32_modes2_128_epoch_100" / "manifold_pca.png"
+    save_path = PROJECT_ROOT / "runs" / "modes1_32_modes2_128_epoch_100" / "manifold_pca.png"
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     print(f"✅ Visualization saved to {save_path}")
     
@@ -129,7 +129,7 @@ def main():
     plt.plot(smoothed_x_tsne, smoothed_y_tsne, 'k-', alpha=0.5, linewidth=1, label='Smoothed Trajectory')
     plt.legend()
     
-    tsne_save_path = SCRIPT_DIR / "runs" / "modes1_32_modes2_128_epoch_100" / "manifold_tsne.png"
+    tsne_save_path = PROJECT_ROOT / "runs" / "modes1_32_modes2_128_epoch_100" / "manifold_tsne.png"
     plt.savefig(tsne_save_path, dpi=300, bbox_inches='tight')
     print(f"✅ t-SNE Visualization saved to {tsne_save_path}")
 

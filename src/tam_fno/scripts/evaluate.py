@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 # Add project root to sys.path
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 sys.path.append(str(PROJECT_ROOT / "src"))
 
 from tam_fno.io_mat import MatReader
@@ -40,7 +40,7 @@ def main():
     TEST_X_PATH  = DATA_DIR / "interp_test_x_SSP_TLshape_ndrz10.mat"
     TEST_Y_PATH  = DATA_DIR / "test_y_SSP_TLshape_ndrz10.mat"
     NORM_PATH = PROJECT_ROOT / "normalizers" / "ssp_tl_norm_train2336_ndrz10.pt"
-    MODEL_PATH = PROJECT_ROOT / "experiments" / "tam_fno" / "runs" / "modes1_32_modes2_128_epoch_100" / "model_tam_fno.pth"
+    MODEL_PATH = PROJECT_ROOT / "runs" / "modes1_32_modes2_128_epoch_100" / "model_tam_fno.pth"
     
     # Load normalizers
     norm_dict = torch.load(str(NORM_PATH), map_location='cpu')

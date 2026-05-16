@@ -54,11 +54,11 @@ def parse_train_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def resolve_result_dir(script_dir: Path, args: argparse.Namespace) -> Path:
+def resolve_result_dir(project_root: Path, args: argparse.Namespace) -> Path:
     if args.result_dir:
         return Path(args.result_dir)
 
-    result_dir = script_dir / DEFAULT_RESULT_DIR
+    result_dir = project_root / DEFAULT_RESULT_DIR
     if args.run_tag:
         result_dir = result_dir.parent / f"{result_dir.name}_{args.run_tag}"
     return result_dir
@@ -120,7 +120,7 @@ def train_tam_fno(script_dir: Path) -> None:
     torch.manual_seed(0)
     np.random.seed(0)
 
-    paths = get_project_paths(script_dir.parents[1])
+    paths = get_project_paths(script_dir)
     paths.normalizers_dir.mkdir(parents=True, exist_ok=True)
     paths.results_dir.mkdir(parents=True, exist_ok=True)
     split_manifest_path = (
@@ -129,7 +129,7 @@ def train_tam_fno(script_dir: Path) -> None:
     normalizer_path = (
         Path(args.normalizer_path) if args.normalizer_path else paths.normalizer_path
     )
-    result_dir = resolve_result_dir(script_dir, args)
+    result_dir = resolve_result_dir(paths.project_root, args)
     result_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Saving outputs to {result_dir}")

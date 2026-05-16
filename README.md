@@ -7,8 +7,8 @@ This repository is organized for reproducible academic use. It contains only the
 ## Repository Layout
 
 ```text
-src/tam_fno/                 Core package: TAM-FNO model, data utilities, time encoding, training helpers
-experiments/tam_fno/         TAM-FNO training, evaluation, and visualization scripts
+src/tam_fno/                 Core package: model, data utilities, time encoding, training helpers
+src/tam_fno/scripts/         TAM-FNO training, evaluation, and visualization scripts
 scripts/                     Preprocessing and TAM-FNO shell helpers
 tests/                       Lightweight smoke tests
 data/                        Local generated data directory, ignored except README
@@ -55,7 +55,7 @@ Preprocessing writes generated train/test files under `data/`, which is ignored.
 Run TAM-FNO directly:
 
 ```bash
-python experiments/tam_fno/train.py --epochs 100 --device cuda
+python -m tam_fno.scripts.train --epochs 100 --device cuda
 ```
 
 Or use the shell helper:
@@ -67,9 +67,9 @@ bash scripts/train_tam_fno.sh --epochs 100 --device cuda
 ## Evaluation
 
 ```bash
-python experiments/tam_fno/evaluate.py
-python experiments/tam_fno/plot_rmse_curve.py
-python experiments/tam_fno/visualize_perturbation.py
+python -m tam_fno.scripts.evaluate
+python -m tam_fno.scripts.plot_rmse_curve
+python -m tam_fno.scripts.visualize_perturbation
 ```
 
 Model checkpoints and generated figures are ignored by default. Pass explicit paths if your artifacts are stored elsewhere.

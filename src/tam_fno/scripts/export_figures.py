@@ -228,7 +228,7 @@ def main(argv: list[str] | None = None) -> None:
     y_train = MatReader(str(paths.train_y_path)).read_field("train_y")
 
     model_path = Path(args.model_film) if args.model_film else (
-        PROJECT_ROOT / "experiments" / "tam_fno" / "runs" / "modes1_32_modes2_128_epoch_100" / "model_tam_fno.pth"
+        PROJECT_ROOT / "runs" / "modes1_32_modes2_128_epoch_100" / "model_tam_fno.pth"
     )
     model = instantiate_film_model(device)
     model.load_state_dict(torch.load(str(model_path), map_location=device))

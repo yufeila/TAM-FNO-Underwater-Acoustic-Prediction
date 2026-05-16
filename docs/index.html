@@ -232,10 +232,7 @@
         <div class="affiliation">Code release and project page</div>
         <div class="publication-links">
           <a class="button" href="https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction">Code</a>
-          <a class="button" href="#abstract">Abstract</a>
-          <a class="button" href="#method">Method</a>
-          <a class="button" href="#results">Results</a>
-          <a class="button" href="#citation">BibTeX</a>
+          <a class="button" href="paper.pdf">Paper</a>
         </div>
       </div>
     </header>
@@ -308,29 +305,6 @@
               Fig. 2. Visualization of generated transmission losses. TAM-FNO keeps the predicted field closer to the ground truth and shows a cleaner absolute-error map in this selected case. The paper reports the best overall metrics for TAM-FNO, including about 15.5% lower RMSE than the strongest non-FiLM baseline.
             </figcaption>
           </figure>
-        </div>
-      </section>
-
-      <section id="code">
-        <div class="container">
-          <h2 class="section-title">Code</h2>
-          <div class="content">
-            <p>
-              The repository contains the TAM-FNO implementation, preprocessing utilities, and minimal training and evaluation entry points. Experimental data and generated artifacts are handled locally by each reproducer.
-            </p>
-          </div>
-          <div class="code-block">
-            <pre><code>conda env create -f environment.yml
-conda activate tam_fno
-pip install -e .
-
-python scripts/preprocess_data.py \
-  --raw-tl /path/to/TL.mat \
-  --raw-ssp /path/to/SSP.mat
-
-python src/scripts/train.py --epochs 100 --device cuda
-python src/scripts/evaluate.py</code></pre>
-          </div>
         </div>
       </section>
 

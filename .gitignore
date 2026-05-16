@@ -32,6 +32,7 @@ checkpoints/
 
 # Generated figures and scratch exports
 *.pdf
+!docs/paper.pdf
 *.aux
 *.log
 *.fdb_latexmk

@@ -1,0 +1,12 @@
+numpy>=1.26
+scipy>=1.11
+h5py>=3.11
+torch
+torchvision
+torchaudio
+matplotlib
+pandas
+scikit-image
+scikit-learn
+tqdm
+pytest

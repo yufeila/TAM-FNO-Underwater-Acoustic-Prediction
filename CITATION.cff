@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the associated paper and this repository."
+title: "TAM-FNO Underwater Acoustic Prediction"
+type: software
+authors:
+  - family-names: Yang
+    given-names: Yufei
+repository-code: "https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction"
+url: "https://yufeila.github.io/TAM-FNO-Underwater-Acoustic-Prediction/"
+version: "0.1.0"
+date-released: "2026-05-15"
+license: MIT

@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Local data and experiment artifacts
+raw_data/
+data/*
+!data/README.md
+/normalizers/
+/logs/
+/results/
+runs/
+checkpoints/
+/outputs/
+/paper_outputs*/
+/retrain*/
+
+# Large or generated scientific files
+*.mat
+*.npz
+*.npy
+*.pt
+*.pth
+*.pkl
+*.h5
+*.hdf5
+
+# Generated figures and scratch exports
+*.pdf
+*.aux
+*.log
+*.fdb_latexmk
+*.fls
+tmp/
+
+# Local tools
+graphify-out/
+.graphify_*
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

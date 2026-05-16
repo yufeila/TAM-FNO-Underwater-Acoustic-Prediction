@@ -37,12 +37,6 @@ TAM-FNO 的最小复现脚本也放在 `src/tam_fno/scripts/` 下，例如：
 
 GitHub Pages 会读取这里的内容。`docs/index.html` 是网站主页，`docs/assets/` 存放网页图片。
 
-### `data/README.md`
-
-建议保留。
-
-它只说明本地数据应该放在哪里，不包含真实实验数据。
-
 ### `.gitignore`
 
 必须保留。
@@ -86,6 +80,12 @@ GitHub 和论文工具可以用它生成引用信息。
 用于说明贡献规范，尤其提醒不要提交数据和实验产物。
 
 ## 不应该上传
+
+### `data/`
+
+不应该上传。
+
+这里是预处理后生成的数据目录，属于本地运行产物。包括 `data/README.md` 也不再保留。
 
 ### `graphify-out/`
 

@@ -10,7 +10,6 @@ This repository is organized for reproducible academic use. It contains only the
 src/tam_fno/                 Core package: model, data utilities, time encoding, training helpers
 src/tam_fno/scripts/         Minimal TAM-FNO training and evaluation entry points
 scripts/                     Preprocessing and TAM-FNO shell helpers
-data/                        Local generated data directory, ignored except README
 docs/                        Static GitHub Pages site
 ```
 

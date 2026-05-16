@@ -9,4 +9,3 @@ pandas
 scikit-image
 scikit-learn
 tqdm
-pytest

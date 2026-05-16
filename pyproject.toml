@@ -38,9 +38,6 @@ dependencies = [
   "tqdm"
 ]
 
-[project.optional-dependencies]
-dev = ["pytest"]
-
 [project.urls]
 Homepage = "https://yufeila.github.io/TAM-FNO-Underwater-Acoustic-Prediction/"
 Repository = "https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction"

@@ -2,7 +2,7 @@
 
 Code release for **TAM-FNO**, a time-adaptive modulated Fourier Neural Operator for underwater acoustic transmission-loss prediction from sound-speed profiles.
 
-This repository is organized for reproducible academic use. It contains only the TAM-FNO implementation and its preprocessing, training, evaluation, visualization, tests, and GitHub Pages site. It intentionally does **not** contain comparison-model code, experimental data, checkpoints, logs, normalizers, or generated result archives.
+This repository is organized for reproducible academic use. It contains only the TAM-FNO implementation and its preprocessing, training, evaluation, and GitHub Pages site. It intentionally does **not** contain comparison-model code, experimental data, checkpoints, logs, normalizers, tests, or generated result archives.
 
 ## Repository Layout
 
@@ -10,7 +10,6 @@ This repository is organized for reproducible academic use. It contains only the
 src/tam_fno/                 Core package: model, data utilities, time encoding, training helpers
 src/tam_fno/scripts/         Minimal TAM-FNO training and evaluation entry points
 scripts/                     Preprocessing and TAM-FNO shell helpers
-tests/                       Lightweight smoke tests
 data/                        Local generated data directory, ignored except README
 docs/                        Static GitHub Pages site
 ```
@@ -71,14 +70,6 @@ python -m tam_fno.scripts.evaluate
 ```
 
 Model checkpoints and generated outputs are ignored by default. Pass explicit paths if your artifacts are stored elsewhere.
-
-## Tests
-
-```bash
-PYTHONPATH=src pytest -q
-```
-
-The included tests only check model import and tensor shapes, so they do not require private data.
 
 ## Citation
 

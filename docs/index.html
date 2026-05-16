@@ -6,20 +6,16 @@
     <title>TAM-FNO Underwater Acoustic Prediction</title>
     <meta
       name="description"
-      content="A public companion site for TAM-FNO, a time-adaptive modulated Fourier Neural Operator for underwater acoustic transmission-loss prediction."
+      content="Project page for TAM-FNO, a time-adaptive modulated Fourier Neural Operator for underwater acoustic transmission-loss prediction."
     >
     <style>
       :root {
-        --ink: #14211d;
-        --muted: #5c6964;
-        --paper: #ffffff;
-        --white: #ffffff;
-        --line: #d7d1c3;
-        --sea: #0f6f76;
-        --deep: #12344d;
-        --rust: #a7472f;
-        --gold: #a77a24;
-        --pale: #e8efe9;
+        --ink: #1f2a27;
+        --muted: #5f6d68;
+        --line: #e5e7eb;
+        --soft: #f7f8fa;
+        --button: #24292f;
+        --link: #3273dc;
       }
 
       * {
@@ -33,395 +29,298 @@
       body {
         margin: 0;
         color: var(--ink);
-        background: var(--paper);
-        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #ffffff;
+        font-family: "Google Sans", "Noto Sans", Arial, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         line-height: 1.58;
       }
 
       a {
-        color: inherit;
-      }
-
-      .site-header {
-        border-bottom: 1px solid var(--line);
-        background: var(--paper);
-      }
-
-      .topnav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: min(1160px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 24px 0;
-        font-size: 0.92rem;
-        font-weight: 700;
-      }
-
-      .topnav .links {
-        display: flex;
-        gap: 20px;
-        color: var(--muted);
-      }
-
-      .topnav a {
+        color: var(--link);
         text-decoration: none;
       }
 
-      main {
-        width: min(1160px, calc(100% - 40px));
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        width: min(980px, calc(100% - 36px));
         margin: 0 auto;
       }
 
-      section {
-        padding: 72px 0;
-        border-bottom: 1px solid var(--line);
+      .publication-header {
+        padding: 54px 0 28px;
+        text-align: center;
       }
 
-      .section-head {
-        display: grid;
-        grid-template-columns: minmax(180px, 0.38fr) 1fr;
-        gap: 36px;
-        align-items: start;
-        margin-bottom: 32px;
-      }
-
-      .label {
-        margin: 0;
-        color: var(--sea);
-        font-size: 0.82rem;
-        font-weight: 850;
-        letter-spacing: 0;
-        text-transform: uppercase;
-      }
-
-      h2 {
-        margin: 0;
-        font-size: clamp(1.75rem, 3.4vw, 3rem);
+      .publication-title {
+        max-width: 980px;
+        margin: 0 auto 18px;
+        font-size: clamp(2.15rem, 5.6vw, 4.2rem);
         line-height: 1.08;
+        font-weight: 760;
         letter-spacing: 0;
       }
 
-      h3 {
-        margin: 0 0 8px;
-        font-size: 1.08rem;
-        letter-spacing: 0;
-      }
-
-      p {
-        margin: 0;
-      }
-
-      .intro-text {
+      .publication-subtitle {
         max-width: 860px;
-        color: #2b3834;
-        font-size: clamp(1rem, 1.8vw, 1.16rem);
+        margin: 0 auto 22px;
+        color: var(--muted);
+        font-size: clamp(1.08rem, 2vw, 1.35rem);
       }
 
-      .body-copy {
-        max-width: 900px;
+      .authors,
+      .affiliation {
+        color: #3d4744;
+        font-size: 1.05rem;
       }
 
-      .body-copy p {
-        color: #2b3834;
-        font-size: clamp(1rem, 1.8vw, 1.16rem);
+      .affiliation {
+        margin-top: 6px;
+        color: var(--muted);
       }
 
-      .body-copy p + p {
-        margin-top: 18px;
+      .publication-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 24px;
       }
 
-      .method-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 14px;
-        margin-top: 28px;
-      }
-
-      .step {
-        min-height: 158px;
-        padding: 18px;
-        background: var(--pale);
-        border: 1px solid #c9d8cf;
-        border-radius: 8px;
-      }
-
-      .step span {
+      .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 30px;
-        height: 30px;
-        margin-bottom: 18px;
-        background: var(--sea);
-        color: var(--white);
-        font-size: 0.9rem;
-        font-weight: 850;
+        min-height: 38px;
+        padding: 0 16px;
+        border-radius: 999px;
+        background: var(--button);
+        color: #ffffff;
+        font-size: 0.96rem;
+        font-weight: 700;
       }
 
-      .figure-wrap {
-        margin-top: 34px;
-        padding: 18px;
-        background: #ffffff;
-        border: 1px solid var(--line);
-        border-radius: 8px;
+      .button:hover {
+        color: #ffffff;
+        text-decoration: none;
+        background: #111827;
       }
 
-      .figure-wrap img {
+      .teaser {
+        padding: 18px 0 36px;
+        text-align: center;
+      }
+
+      .teaser p {
+        max-width: 900px;
+        margin: 0 auto;
+        font-size: clamp(1.1rem, 2vw, 1.35rem);
+      }
+
+      section {
+        padding: 44px 0;
+      }
+
+      .section-title {
+        margin: 0 0 18px;
+        text-align: center;
+        font-size: clamp(1.55rem, 3vw, 2.15rem);
+        font-weight: 760;
+      }
+
+      .content {
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      .content p {
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .content p + p {
+        margin-top: 16px;
+      }
+
+      .figure {
+        margin: 24px auto 0;
+        max-width: 1120px;
+      }
+
+      .figure img {
         display: block;
         width: 100%;
         height: auto;
         background: #ffffff;
       }
 
-      figcaption {
-        margin-top: 14px;
+      .figure figcaption {
+        max-width: 900px;
+        margin: 12px auto 0;
         color: var(--muted);
-        font-size: 0.95rem;
+        font-size: 0.96rem;
+        text-align: center;
       }
 
-      .result-figure {
-        margin: 0 0 30px;
-        padding: 16px;
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: 8px;
+      .figure.architecture {
+        max-width: 980px;
       }
 
-      .result-figure img {
-        display: block;
-        width: 100%;
-        height: auto;
+      .figure.results {
+        max-width: 1180px;
       }
 
-      .result-figure figcaption {
-        color: var(--muted);
-      }
-
-      .results {
-        display: grid;
-        grid-template-columns: 0.9fr 1.1fr;
-        gap: 30px;
-        align-items: start;
-      }
-
-      .result-list {
-        display: grid;
-        gap: 14px;
-      }
-
-      .result-item {
-        padding-left: 18px;
-        border-left: 4px solid var(--gold);
-      }
-
-      .result-item p {
-        color: var(--muted);
-      }
-
-      .callout {
-        padding: 24px;
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-      }
-
-      .callout p + p {
-        margin-top: 12px;
+      .code-block {
+        max-width: 860px;
+        margin: 22px auto 0;
       }
 
       pre {
-        overflow-x: auto;
         margin: 0;
-        padding: 20px;
-        background: #17231f;
-        color: #fff8e8;
-        border: 1px solid #0d1512;
-        border-radius: 8px;
+        padding: 18px 20px;
+        overflow-x: auto;
+        color: #f8fafc;
+        background: #20252b;
+        border-radius: 6px;
       }
 
       code {
         font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-        font-size: 0.95em;
+        font-size: 0.94rem;
       }
 
-      .repo {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
-        gap: 28px;
-        align-items: start;
+      .bibtex {
+        max-width: 860px;
+        margin: 0 auto;
       }
 
       footer {
-        width: min(1160px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 30px 0 44px;
+        padding: 32px 0 44px;
+        border-top: 1px solid var(--line);
         color: var(--muted);
+        text-align: center;
         font-size: 0.95rem;
       }
 
-      @media (max-width: 860px) {
-        .topnav {
-          align-items: flex-start;
-          gap: 14px;
+      @media (max-width: 640px) {
+        .publication-header {
+          padding-top: 38px;
         }
 
-        .topnav .links {
-          gap: 12px;
-          font-size: 0.86rem;
-        }
-
-        .section-head,
-        .results,
-        .repo {
-          grid-template-columns: 1fr;
-        }
-
-        .method-grid {
-          grid-template-columns: 1fr;
-        }
-
-        section {
-          padding: 52px 0;
-        }
-
-      }
-
-      @media (max-width: 520px) {
-        .topnav {
-          width: min(100% - 28px, 1160px);
+        .publication-links {
+          align-items: stretch;
           flex-direction: column;
         }
 
-        main,
-        footer {
-          width: min(100% - 28px, 1160px);
+        .button {
+          width: 100%;
         }
       }
     </style>
   </head>
   <body>
-    <header class="site-header">
-      <nav class="topnav" aria-label="Primary">
-        <a href="#">TAM-FNO</a>
-        <div class="links">
-          <a href="#problem">Problem</a>
-          <a href="#method">Method</a>
-          <a href="#results">Results</a>
-          <a href="https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction">Code</a>
+    <header class="publication-header">
+      <div class="container">
+        <h1 class="publication-title">
+          TAM-FNO Underwater Acoustic Prediction
+        </h1>
+        <p class="publication-subtitle">
+          Time-Adaptive Modulated Fourier Neural Operator for underwater acoustic transmission-loss prediction.
+        </p>
+        <div class="authors">Yufei Yang</div>
+        <div class="affiliation">Code release and project page</div>
+        <div class="publication-links">
+          <a class="button" href="https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction">Code</a>
+          <a class="button" href="#abstract">Abstract</a>
+          <a class="button" href="#method">Method</a>
+          <a class="button" href="#results">Results</a>
+          <a class="button" href="#citation">BibTeX</a>
         </div>
-      </nav>
+      </div>
     </header>
 
     <main>
-      <section id="introduction">
-        <div class="section-head">
-          <p class="label">Introduction</p>
-          <h2>Dynamic ocean environments motivate time-aware acoustic prediction.</h2>
+      <section class="teaser">
+        <div class="container">
+          <p>
+            TAM-FNO introduces temporal awareness into Fourier neural operators so that transmission-loss fields can be predicted under dynamic ocean conditions.
+          </p>
         </div>
-        <p class="intro-text">
-          Sound speed profiles vary with depth and time because the ocean is affected by temperature, salinity, and seasonal dynamics. These changes alter the acoustic field and the transmission loss observed across range and depth. Physics-based solvers are valuable, but repeated simulation over many environmental states can be expensive. TAM-FNO is designed as a learned surrogate: after training, it predicts transmission-loss fields from sound-speed information and time features.
-        </p>
+      </section>
+
+      <section id="abstract">
+        <div class="container">
+          <h2 class="section-title">Abstract</h2>
+          <div class="content">
+            <p>
+              Underwater acoustic field prediction is important for environment-aware sensing, communication, and autonomous underwater operations. Conventional numerical solvers can be accurate, but repeated simulation across many ocean states is computationally expensive.
+            </p>
+            <p>
+              TAM-FNO is a time-adaptive modulated Fourier Neural Operator for predicting acoustic transmission loss from sound-speed profiles. Instead of directly concatenating time to the spatial input, TAM-FNO separates spatial feature extraction from temporal conditioning. A temporal branch encodes the time index with multi-frequency Fourier features and modulates the FNO backbone through FiLM-style channel-wise scale and shift terms.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="problem">
-        <div class="section-head">
-          <p class="label">Problem Statement</p>
-          <h2>Learn the map from sound speed and time to transmission loss.</h2>
-        </div>
-        <div class="body-copy">
-          <p>
-            Given a sound-speed profile and its associated time index, the goal is to predict the corresponding acoustic transmission-loss field over range and depth. The sound-speed profile describes the environmental state of the ocean, while the time index carries information about daily and seasonal variation.
-          </p>
-          <p>
-            In operator-learning terms, the task is to learn a time-parameterized mapping from sound-speed information to transmission loss. TAM-FNO treats time as a conditioning variable rather than simply appending it to the spatial input, so the model can adapt its prediction as the ocean state changes.
-          </p>
+        <div class="container">
+          <h2 class="section-title">Problem Statement</h2>
+          <div class="content">
+            <p>
+              Given a sound-speed profile and its associated time index, the goal is to predict the corresponding acoustic transmission-loss field over range and depth. The sound-speed profile describes the environmental state of the ocean, while the time index carries information about daily and seasonal variation.
+            </p>
+            <p>
+              In operator-learning terms, the task is to learn a time-parameterized mapping from sound-speed information to transmission loss. TAM-FNO treats time as a conditioning variable rather than simply appending it to the spatial input, so the model can adapt its prediction as the ocean state changes.
+            </p>
+          </div>
         </div>
       </section>
 
       <section id="method">
-        <div class="section-head">
-          <p class="label">Proposed Method</p>
-          <h2>TAM-FNO adds time-aware modulation to a Fourier Neural Operator.</h2>
+        <div class="container">
+          <h2 class="section-title">Method</h2>
+          <div class="content">
+            <p>
+              TAM-FNO follows a dual-track design. The spatial branch processes the sound-speed field through a Fourier Neural Operator backbone, while the temporal branch transforms the raw time index into a periodic descriptor. The temporal descriptor generates modulation terms that adapt intermediate feature channels inside the FNO blocks.
+            </p>
+          </div>
+          <figure class="figure architecture">
+            <img src="assets/architecture.png" alt="TAM-FNO architecture with temporal Fourier encoding and FiLM-style modulation.">
+            <figcaption>
+              Architecture overview. The spatial branch extracts field-level features, and the temporal branch modulates the FNO backbone using multi-frequency Fourier time encoding.
+            </figcaption>
+          </figure>
         </div>
-        <p class="intro-text">
-          Fourier Neural Operators learn mappings between fields by mixing information in the spectral domain. TAM-FNO keeps this operator-learning backbone and adds a temporal modulation branch. The time branch converts the raw time index into Fourier features, then uses FiLM-style modulation to adjust feature channels inside the FNO blocks.
-        </p>
-        <div class="method-grid">
-          <div class="step">
-            <span>1</span>
-            <h3>Lift the field</h3>
-            <p>Sound-speed information is lifted into a higher-dimensional feature space.</p>
-          </div>
-          <div class="step">
-            <span>2</span>
-            <h3>Encode time</h3>
-            <p>Multi-frequency Fourier encoding represents periodic time variation.</p>
-          </div>
-          <div class="step">
-            <span>3</span>
-            <h3>Modulate channels</h3>
-            <p>Temporal features produce channel-wise scale and shift parameters.</p>
-          </div>
-          <div class="step">
-            <span>4</span>
-            <h3>Predict TL</h3>
-            <p>The network projects learned features to a transmission-loss map.</p>
-          </div>
-        </div>
-        <figure class="figure-wrap">
-          <img src="assets/architecture.png" alt="TAM-FNO architecture with temporal Fourier encoding and FiLM-style modulation.">
-          <figcaption>
-            Architecture overview. The spatial branch processes the acoustic field with FNO blocks, while the time branch uses multi-frequency Fourier encoding to modulate the feature channels.
-          </figcaption>
-        </figure>
       </section>
 
       <section id="results">
-        <div class="section-head">
-          <p class="label">Experiments and Results</p>
-          <h2>The experiments evaluate whether the learned surrogate tracks acoustic-field structure.</h2>
-        </div>
-        <figure class="result-figure">
-          <img src="assets/fig2_tl_visuals.png" alt="Fig. 2. Transmission-loss predictions and absolute error maps for ground truth, baseline models, and TAM-FNO.">
-          <figcaption>
-            Fig. 2. Visualization of generated transmission losses. The top row shows predicted TL fields, and the bottom row shows absolute error maps. TAM-FNO keeps the predicted field closer to the ground truth and shows a lighter error map in this selected case.
-          </figcaption>
-        </figure>
-        <div class="results">
-          <div class="callout">
-            <h3>What the public site shows</h3>
+        <div class="container">
+          <h2 class="section-title">Experiments and Results</h2>
+          <div class="content">
             <p>
-              The site keeps the experimental summary lightweight. It shows the selected paper figure and summarizes the main observation instead of publishing raw data, checkpoints, logs, or generated result archives.
-            </p>
-            <p>
-              Detailed numerical settings and full quantitative tables should be read from the paper.
+              The experiments evaluate whether the learned surrogate can reproduce the spatial structure of transmission-loss fields. The selected visual comparison shows predicted TL fields and absolute error maps for the ground truth, baseline variants, and TAM-FNO.
             </p>
           </div>
-          <div class="result-list">
-            <div class="result-item">
-              <h3>Time information matters</h3>
-              <p>TAM-FNO uses the same spatial input together with a time descriptor, allowing one model to adapt predictions across changing ocean states.</p>
-            </div>
-            <div class="result-item">
-              <h3>Visual error is reduced</h3>
-              <p>In the selected example, the TAM-FNO absolute-error map is cleaner than the compared variants, especially in regions with stronger range-depth variation.</p>
-            </div>
-            <div class="result-item">
-              <h3>Reported metrics improve</h3>
-              <p>The paper reports the best overall metrics for TAM-FNO, including about 15.5% lower RMSE than the strongest non-FiLM baseline.</p>
-            </div>
-          </div>
+          <figure class="figure results">
+            <img src="assets/fig2_tl_visuals.png" alt="Fig. 2. Transmission-loss predictions and absolute error maps for ground truth, baseline models, and TAM-FNO.">
+            <figcaption>
+              Fig. 2. Visualization of generated transmission losses. TAM-FNO keeps the predicted field closer to the ground truth and shows a cleaner absolute-error map in this selected case. The paper reports the best overall metrics for TAM-FNO, including about 15.5% lower RMSE than the strongest non-FiLM baseline.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
       <section id="code">
-        <div class="section-head">
-          <p class="label">Reproduce</p>
-          <h2>Run the released TAM-FNO code with local data.</h2>
-        </div>
-        <div class="repo">
-          <pre><code>conda env create -f environment.yml
+        <div class="container">
+          <h2 class="section-title">Code</h2>
+          <div class="content">
+            <p>
+              The repository contains the TAM-FNO implementation, preprocessing utilities, and minimal training and evaluation entry points. Experimental data and generated artifacts are handled locally by each reproducer.
+            </p>
+          </div>
+          <div class="code-block">
+            <pre><code>conda env create -f environment.yml
 conda activate tam_fno
 pip install -e .
 
@@ -431,21 +330,28 @@ python scripts/preprocess_data.py \
 
 python src/scripts/train.py --epochs 100 --device cuda
 python src/scripts/evaluate.py</code></pre>
-          <div class="callout">
-            <h3>Repository scope</h3>
-            <p>
-              The repository contains the TAM-FNO implementation, preprocessing utilities, training and evaluation entry points, and this website.
-            </p>
-            <p>
-              Experimental data and generated artifacts are handled locally by each reproducer.
-            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="citation">
+        <div class="container">
+          <h2 class="section-title">BibTeX</h2>
+          <div class="bibtex">
+            <pre><code>@software{yang2026tamfno,
+  title  = {TAM-FNO Underwater Acoustic Prediction},
+  author = {Yang, Yufei},
+  year   = {2026},
+  url    = {https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction},
+  version = {0.1.0}
+}</code></pre>
           </div>
         </div>
       </section>
     </main>
 
     <footer>
-      TAM-FNO Underwater Acoustic Prediction. Academic companion site and code release.
+      TAM-FNO Underwater Acoustic Prediction. Academic project page and code release.
     </footer>
   </body>
 </html>

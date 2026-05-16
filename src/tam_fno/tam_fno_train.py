@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from .models.fno2d_film import FNO2d_FiLM, H1Loss, LpLoss
+from .tam_fno_model import FNO2d_FiLM, H1Loss, LpLoss
 from .normalizer import UnitGaussianNormalizer, load_normalizers, save_normalizers
 from .tam_fno_config import (
     DEFAULT_BATCH_SIZE,

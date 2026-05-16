@@ -1,4 +1,4 @@
-"""TAM-FNO models and utilities for underwater acoustic prediction."""
+"""TAM-FNO utilities for underwater acoustic prediction."""
 
 __all__ = ["__version__"]
 

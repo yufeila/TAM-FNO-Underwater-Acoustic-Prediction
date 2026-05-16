@@ -1,6 +1,6 @@
 import torch
 
-from tam_fno.models import FNO2d_FiLM
+from tam_fno.tam_fno_model import FNO2d_FiLM
 
 
 def test_tam_fno_output_shape():

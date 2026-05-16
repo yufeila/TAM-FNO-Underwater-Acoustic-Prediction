@@ -24,7 +24,7 @@ while not (PROJECT_ROOT / "src").exists():
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from tam_fno.io_mat import MatReader
-from tam_fno.models.fno2d_film import FNO2d_FiLM
+from tam_fno.tam_fno_model import FNO2d_FiLM
 from tam_fno.normalizer import load_normalizers
 try:
     from tam_fno.tam_fno_config import DEFAULT_MODES1, DEFAULT_MODES2, DEFAULT_WIDTH, get_project_paths

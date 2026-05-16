@@ -7,7 +7,7 @@ This repository is organized for reproducible academic use. It contains only the
 ## Repository Layout
 
 ```text
-src/tam_fno/                 Core package: models, data utilities, time encoding, training helpers
+src/tam_fno/                 Core package: TAM-FNO model, data utilities, time encoding, training helpers
 experiments/tam_fno/         TAM-FNO training, evaluation, and visualization scripts
 scripts/                     Preprocessing and TAM-FNO shell helpers
 tests/                       Lightweight smoke tests

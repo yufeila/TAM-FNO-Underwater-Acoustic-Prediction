@@ -12,7 +12,7 @@ sys.path.append(str(PROJECT_ROOT / "src"))
 
 from tam_fno.io_mat import MatReader
 from tam_fno.normalizer import UnitGaussianNormalizer
-from tam_fno.models.fno2d_film import FNO2d_FiLM
+from tam_fno.tam_fno_model import FNO2d_FiLM
 
 def fourier_feats_1d(t: torch.Tensor, freqs: torch.Tensor) -> torch.Tensor:
     two_pi = 2.0 * np.pi

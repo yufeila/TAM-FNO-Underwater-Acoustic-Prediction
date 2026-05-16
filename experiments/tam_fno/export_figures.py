@@ -22,7 +22,7 @@ while not (PROJECT_ROOT / "src").exists():
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from tam_fno.io_mat import MatReader
-from tam_fno.models.fno2d_film import FNO2d_FiLM
+from tam_fno.tam_fno_model import FNO2d_FiLM
 from tam_fno.normalizer import load_normalizers
 from tam_fno.tam_fno_config import NTOTAL, SAMPLES_PER_DAY, get_project_paths
 from tam_fno.tam_fno_split import load_split_manifest

@@ -171,30 +171,6 @@
         max-width: 1180px;
       }
 
-      .code-block {
-        max-width: 860px;
-        margin: 22px auto 0;
-      }
-
-      pre {
-        margin: 0;
-        padding: 18px 20px;
-        overflow-x: auto;
-        color: #f8fafc;
-        background: #20252b;
-        border-radius: 6px;
-      }
-
-      code {
-        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-        font-size: 0.94rem;
-      }
-
-      .bibtex {
-        max-width: 860px;
-        margin: 0 auto;
-      }
-
       footer {
         padding: 32px 0 44px;
         border-top: 1px solid var(--line);
@@ -260,6 +236,23 @@
         </div>
       </section>
 
+      <section id="introduction">
+        <div class="container">
+          <h2 class="section-title">Introduction</h2>
+          <div class="content">
+            <p>
+              Underwater acoustic field prediction supports tasks such as environment-aware sensing, underwater communication, and autonomous underwater vehicle planning. A conventional workflow repeatedly runs numerical acoustic solvers such as RAM under different ocean conditions. This is accurate but expensive when predictions are needed for many environmental states.
+            </p>
+            <p>
+              Fourier Neural Operators provide a fast surrogate route: once trained, they can map a sound-speed field to a transmission-loss field in a single forward pass. However, many existing FNO-based acoustic models mainly learn a spatial mapping and treat the ocean as nearly static.
+            </p>
+            <p>
+              Real ocean environments vary with daily and seasonal changes in temperature and salinity. Simply concatenating time to the input grid is not always effective, because the same global time descriptor is broadcast over all spatial locations. TAM-FNO addresses this by separating spatial feature extraction from temporal conditioning.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section id="problem">
         <div class="container">
           <h2 class="section-title">Problem Statement</h2>
@@ -281,6 +274,15 @@
             <p>
               TAM-FNO follows a dual-track design. The spatial branch processes the sound-speed field through a Fourier Neural Operator backbone, while the temporal branch transforms the raw time index into a periodic descriptor. The temporal descriptor generates modulation terms that adapt intermediate feature channels inside the FNO blocks.
             </p>
+            <p>
+              The spatial branch receives the sound-speed field as a two-dimensional input over range and depth. A lifting layer maps this input to a latent tensor, and the backbone then propagates it through four TAM-FNO blocks. Each block combines spectral convolution, local residual mixing, and temporal modulation.
+            </p>
+            <p>
+              The temporal branch does not place time directly onto the spatial grid. Instead, it encodes the raw time index with multi-frequency Fourier features. In the implementation used in the paper, the descriptor contains daily and annual components, giving the model access to both diurnal and seasonal variation.
+            </p>
+            <p>
+              A small MLP turns the temporal descriptor into channel-wise scale and shift terms. These terms modulate the spatial feature channels as F_out = GELU(F_hat * (1 + gamma(t)) + beta(t)). This lets time steer the learned acoustic operator while keeping the spatial input pathway clean.
+            </p>
           </div>
           <figure class="figure architecture">
             <img src="assets/architecture.png" alt="TAM-FNO architecture with temporal Fourier encoding and FiLM-style modulation.">
@@ -298,6 +300,15 @@
             <p>
               The experiments evaluate whether the learned surrogate can reproduce the spatial structure of transmission-loss fields. The selected visual comparison shows predicted TL fields and absolute error maps for the ground truth, baseline variants, and TAM-FNO.
             </p>
+            <p>
+              The paper uses a real-world South China Sea sound-speed field dataset with 2920 samples over a full year, sampled 8 times per day. The corresponding transmission-loss labels are generated with the RAM acoustic solver. The dataset is split into 2336 training samples and 584 test samples using a fixed random seed.
+            </p>
+            <p>
+              TAM-FNO is compared with three variants that share the same FNO backbone: a static 2D-FNO baseline without temporal input, a scalar-time concatenation model, and a Fourier-encoding concatenation model. The evaluation reports RMSE, relative L2 error, SSIM, and Pearson correlation, covering both numerical error and spatial-structure fidelity.
+            </p>
+            <p>
+              TAM-FNO achieves the best reported value on all four metrics. Its RMSE is 1.9642 dB, compared with 2.3249 dB for the strongest non-FiLM baseline, which is about a 15.5% reduction. Fig. 2 gives a visual example: TAM-FNO preserves the transmission-loss pattern while producing a cleaner absolute-error map.
+            </p>
           </div>
           <figure class="figure results">
             <img src="assets/fig2_tl_visuals.png" alt="Fig. 2. Transmission-loss predictions and absolute error maps for ground truth, baseline models, and TAM-FNO.">
@@ -305,21 +316,6 @@
               Fig. 2. Visualization of generated transmission losses. TAM-FNO keeps the predicted field closer to the ground truth and shows a cleaner absolute-error map in this selected case. The paper reports the best overall metrics for TAM-FNO, including about 15.5% lower RMSE than the strongest non-FiLM baseline.
             </figcaption>
           </figure>
-        </div>
-      </section>
-
-      <section id="citation">
-        <div class="container">
-          <h2 class="section-title">BibTeX</h2>
-          <div class="bibtex">
-            <pre><code>@software{yang2026tamfno,
-  title  = {TAM-FNO Underwater Acoustic Prediction},
-  author = {Yang, Yufei},
-  year   = {2026},
-  url    = {https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction},
-  version = {0.1.0}
-}</code></pre>
-          </div>
         </div>
       </section>
     </main>

@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TAM-FNO Underwater Acoustic Prediction</title>
+    <title>STFM-FNO for Transmission Loss Estimation</title>
     <meta
       name="description"
-      content="Project page for TAM-FNO, a time-adaptive modulated Fourier Neural Operator for underwater acoustic transmission-loss prediction."
+      content="STFM-FNO: Spatio-Temporal Field-Modulated Fourier Neural Operator for Transmission Loss Estimation. Revised manuscript, method, results, and code-release status."
     >
     <style>
       :root {
@@ -186,6 +186,48 @@
         max-width: 1180px;
       }
 
+      .table-scroll {
+        margin: 20px 0;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.96rem;
+      }
+
+      caption {
+        margin-bottom: 10px;
+        text-align: left;
+        color: var(--muted);
+      }
+
+      th, td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        text-align: right;
+      }
+
+      th:first-child, td:first-child {
+        text-align: left;
+      }
+
+      thead, .highlight {
+        background: var(--soft);
+      }
+
+      .highlight {
+        font-weight: 700;
+      }
+
+      .release-note {
+        margin-top: 20px;
+        padding: 18px 20px;
+        background: var(--soft);
+        border-left: 3px solid var(--link);
+      }
+
       footer {
         padding: 32px 0 44px;
         border-top: 1px solid var(--line);
@@ -225,17 +267,17 @@
   <body>
     <header class="publication-header">
       <div class="container">
-        <h1 class="publication-title">
-          TAM-FNO Underwater Acoustic Prediction
-        </h1>
+        <h1 class="publication-title">STFM-FNO</h1>
         <p class="publication-subtitle">
-          Time-Adaptive Modulated Fourier Neural Operator for underwater acoustic transmission-loss prediction.
+          Spatio-Temporal Field-Modulated Fourier Neural Operator for Transmission Loss Estimation
         </p>
-        <div class="authors">Yufei Yang</div>
-        <div class="affiliation">Code release and project page</div>
+        <div class="authors">Yufei Yang, Yifan Sun, Lei Cheng, and Peter Gerstoft</div>
+        <div class="affiliation">Revised manuscript &middot; September 2026</div>
         <div class="publication-links">
           <a class="button" href="https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction">Code</a>
-          <a class="button" href="paper.pdf">Paper</a>
+          <a class="button" href="paper.pdf">Revised Manuscript</a>
+          <a class="button" href="#results">Results</a>
+          <a class="button" href="#release">Code Release Status</a>
         </div>
       </div>
     </header>
@@ -243,38 +285,26 @@
     <main>
       <section class="teaser">
         <div class="container">
-          <p>
-            TAM-FNO introduces temporal awareness into Fourier neural operators so that transmission-loss fields can be predicted under dynamic ocean conditions.
-          </p>
+          <p>Estimate transmission loss at the same time as the input sound speed field, using time-conditioned modulation of latent spatial features.</p>
         </div>
       </section>
 
       <section id="abstract">
         <div class="container">
-          <h2 class="section-title">Abstract</h2>
+          <h2 class="section-title">Overview</h2>
           <div class="content">
             <p>
-              Underwater acoustic field prediction is important for environment-aware sensing, communication, and autonomous underwater operations. Conventional numerical solvers can be accurate, but repeated simulation across many ocean states is computationally expensive.
+              STFM-FNO is a learned surrogate for ocean acoustic transmission loss (TL) estimation.
+              It takes a sound speed field (SSF), range-depth coordinates, and the associated time
+              and estimates TL at the same locations and time. The task is current-time estimation,
+              not future forecasting.
             </p>
             <p>
-              TAM-FNO is a time-adaptive modulated Fourier Neural Operator for predicting acoustic transmission loss from sound-speed profiles. Instead of directly concatenating time to the spatial input, TAM-FNO separates spatial feature extraction from temporal conditioning. A temporal branch encodes the time index with multi-frequency Fourier features and modulates the FNO backbone through FiLM-style channel-wise scale and shift terms.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="introduction">
-        <div class="container">
-          <h2 class="section-title">Introduction</h2>
-          <div class="content">
-            <p>
-              Underwater acoustic field prediction supports tasks such as environment-aware sensing, underwater communication, and autonomous underwater vehicle planning. A conventional workflow repeatedly runs numerical acoustic solvers such as RAM under different ocean conditions. This is accurate but expensive when predictions are needed for many environmental states.
-            </p>
-            <p>
-              Fourier Neural Operators provide a fast surrogate route: once trained, they can map a sound-speed field to a transmission-loss field in a single forward pass. However, many existing FNO-based acoustic models mainly learn a spatial mapping and treat the ocean as nearly static.
-            </p>
-            <p>
-              Real ocean environments vary with daily and seasonal changes in temperature and salinity. Simply concatenating time to the input grid is not always effective, because the same global time descriptor is broadcast over all spatial locations. TAM-FNO addresses this by separating spatial feature extraction from temporal conditioning.
+              Rather than concatenating time with the SSF, the method maps Fourier-encoded time
+              to block-wise affine parameters that modulate latent spatial features. The revised
+              study evaluates this design under monthly blocked testing with temporal purge intervals,
+              including conditional FNO baselines, a separate operating-frequency experiment,
+              and alternative temporal encodings.
             </p>
           </div>
         </div>
@@ -282,13 +312,18 @@
 
       <section id="problem">
         <div class="container">
-          <h2 class="section-title">Problem Statement</h2>
+          <h2 class="section-title">Problem and Role of Time</h2>
           <div class="content">
             <p>
-              Given a sound-speed profile and its associated time index, the goal is to predict the corresponding acoustic transmission-loss field over range and depth. The sound-speed profile describes the environmental state of the ocean, while the time index carries information about daily and seasonal variation.
+              With source and boundary conditions fixed, the SSF determines TL through a physical
+              mapping. A time-conditioned surrogate is a modeling choice for exploiting temporal
+              structure in a finite environmental dataset, not a statement that a static physical
+              mapping is invalid or that time is an additional physical state variable.
             </p>
             <p>
-              In operator-learning terms, the task is to learn a time-parameterized mapping from sound-speed information to transmission loss. TAM-FNO treats time as a conditioning variable rather than simply appending it to the spatial input, so the model can adapt its prediction as the ocean state changes.
+              The input consists of the SSF across range and depth, the locations of these points,
+              and the time at which the SSF was collected. The output is TL at the same ranges and
+              depths at that time. Time acts as an auxiliary conditioning variable.
             </p>
           </div>
         </div>
@@ -298,74 +333,67 @@
         <div class="container">
           <h2 class="section-title">Method</h2>
           <div class="content">
-            <h3>TAM-FNO Architecture</h3>
+            <h3>Two Branches, Block-wise Conditioning</h3>
             <p>
-              TAM-FNO follows a dual-track design. The spatial branch processes the sound-speed field through a Fourier Neural Operator backbone, while the temporal branch transforms the raw time index into a periodic descriptor. The temporal descriptor generates modulation terms that adapt intermediate feature channels inside the FNO blocks.
+              The spatial branch lifts the SSF and its coordinates to a latent tensor and processes
+              it through four FNO blocks. The temporal branch maps the time index to a Fourier
+              descriptor and generates affine modulation parameters for each block. Spatial
+              convolution parameters remain shared across time, while each block learns a temporal
+              response appropriate to its feature representation.
             </p>
+
+            <h3>Daily and Yearly Fourier Encoding</h3>
             <p>
-              The spatial branch receives the sound-speed field as a two-dimensional input over range and depth. A lifting layer maps this input to a latent tensor \(F_0\), and the main backbone then propagates \(F_0\) through four TAM-FNO blocks. Each block combines spectral convolution, local residual mixing, and temporal affine modulation before the final projection layer maps the latent field to the transmission-loss prediction.
-            </p>
-            <h3>Multi-frequency Fourier Temporal Encoding</h3>
-            <p>
-              The temporal branch does not place time directly onto the spatial grid. Instead, it maps the raw time index \(t\) to a periodic Fourier descriptor \(\phi(t)\). Let \(N_d\) be the number of samples in one day and \(N_y\) be the number of samples in one year. The daily and annual components are encoded as:
-            </p>
-            <div class="equation">
-              \[
-              \mathbf{f}_{\mathrm{day}}(t)=
-              \left[
-                \sin\left(2\pi k\frac{t \bmod N_d}{N_d}\right),
-                \cos\left(2\pi k\frac{t \bmod N_d}{N_d}\right)
-              \right]_{k=1}^{K_d}
-              \]
-            </div>
-            <div class="equation">
-              \[
-              \mathbf{f}_{\mathrm{year}}(t)=
-              \left[
-                \sin\left(2\pi k\frac{t}{N_y}\right),
-                \cos\left(2\pi k\frac{t}{N_y}\right)
-              \right]_{k=1}^{K_y}
-              \]
-            </div>
-            <div class="equation">
-              \[
-              \phi(t)=
-              \left[
-                \mathbf{f}_{\mathrm{day}}(t),
-                \mathbf{f}_{\mathrm{year}}(t)
-              \right]
-              \]
-            </div>
-            <p>
-              In the paper setting, \(N_d=8\), \(N_y=2920\), \(K_d=4\), and \(K_y=8\). This produces a 24-dimensional temporal descriptor: 8 channels for diurnal variation and 16 channels for annual variation.
-            </p>
-            <h3>Temporally Affine Modulation</h3>
-            <p>
-              The encoded descriptor \(\phi(t)\) is sent to a temporal MLP generator. For each TAM-FNO block, the generator produces a channel-wise scale term \(\gamma(t)\) and a channel-wise shift term \(\beta(t)\). After spectral convolution and local residual mixing produce an intermediate spatial feature \(\hat{F}\), the temporal terms modulate the feature channels as:
+              Daily and yearly periods provide physically motivated time scales. Sine-cosine pairs
+              preserve phase continuity across cycle boundaries, while multiple harmonics enrich
+              the representation of within-cycle variation.
             </p>
             <div class="equation">
               \[
-              F_{\mathrm{out}} =
-              \mathrm{GELU}\left(
-                \hat{F}\odot\left(1+\gamma(t)\right)+\beta(t)
-              \right)
+                \phi(t) =
+                \left[
+                  \left(\sin\left(2\pi k t/N_d\right),\cos\left(2\pi k t/N_d\right)\right)_{k=1}^{K_d},
+                  \left(\sin\left(2\pi k t/N_y\right),\cos\left(2\pi k t/N_y\right)\right)_{k=1}^{K_y}
+                \right].
               \]
             </div>
             <p>
-              Here, \(\hat{F}\) mainly carries spatial wave-field information, \(\gamma(t)\) reweights feature channels under different temporal states, and \(\beta(t)\) shifts the latent baseline. The residual form \(1+\gamma(t)\) also lets the model behave like a standard 2D-FNO at initialization, which makes training more stable.
+              With \(N_d=8\), \(N_y=2920\), \(K_d=4\), and \(K_y=8\), the descriptor has
+              24 channels: eight daily and sixteen yearly components.
             </p>
+
+            <h3>Spatio-Temporal Field Modulation</h3>
+            <p>
+              A block-specific temporal MLP produces channel-wise parameters
+              \(\gamma_\ell(t)\) and \(\beta_\ell(t)\). For the spatial feature tensor
+              \(\widehat{\mathcal F}_\ell(\mathbf{x})\), the affine modulation is
+            </p>
+            <div class="equation">
+              \[
+                \mathcal M_\ell(\mathbf{x},t) =
+                \left(1+\gamma_\ell(t)\right)\odot
+                \widehat{\mathcal F}_\ell(\mathbf{x})+\beta_\ell(t).
+              \]
+            </div>
+            <p>
+              The scale reweights channels and the shift adjusts their baselines. Each parameter
+              is shared over the spatial grid, but its action on spatially varying features creates
+              a spatially varying latent modulation field. In the first block, these features
+              reflect the SSF structure; deeper features also carry information from previous modulations.
+            </p>
+
             <h3>Training and Inference</h3>
             <p>
-              During training, each sound-speed field and its time index are processed together. The spatial branch extracts latent field features, the temporal branch generates block-wise affine modulation terms, and the whole network is optimized against the reference transmission-loss field. The input and output fields are normalized using training-set statistics only.
-            </p>
-            <p>
-              During inference, a new sound-speed field and its associated time index pass through the same two-branch pipeline. The model then produces a transmission-loss field in one forward pass, avoiding repeated RAM simulations for each time-varying ocean condition.
+              The surrogate is trained against RAM-computed TL fields, with input and output
+              normalization based only on training data. At inference, the SSF, coordinates,
+              and associated time yield a TL estimate in one forward pass.
             </p>
           </div>
           <figure class="figure architecture">
-            <img src="assets/architecture.png" alt="TAM-FNO architecture with temporal Fourier encoding and FiLM-style modulation.">
+            <img src="assets/architecture.png" alt="STFM-FNO architecture: spatial FNO blocks conditioned by daily and yearly Fourier time features.">
             <figcaption>
-              Architecture overview. The spatial branch extracts field-level features, and the temporal branch modulates the FNO backbone using multi-frequency Fourier time encoding.
+              Revised architecture overview. The temporal branch supplies channel-wise scale and
+              shift parameters to the FNO blocks rather than concatenating time with the SSF.
             </figcaption>
           </figure>
         </div>
@@ -373,33 +401,137 @@
 
       <section id="results">
         <div class="container">
-          <h2 class="section-title">Experiments and Results</h2>
+          <h2 class="section-title">Revised Experiments and Results</h2>
           <div class="content">
+            <h3>Monthly Blocked Evaluation</h3>
             <p>
-              The experiments evaluate whether the learned surrogate can reproduce the spatial structure of transmission-loss fields. The selected visual comparison shows predicted TL fields and absolute error maps for the ground truth, baseline variants, and TAM-FNO.
+              The dataset contains 2,920 SSF snapshots over one year, sampled eight times per day.
+              A central continuous test block is selected within each month. One-day intervals on
+              either side are excluded from training and testing, reducing temporal leakage from
+              highly correlated neighboring SSFs. The split contains 2,144 training, 584 test,
+              and 192 purged samples.
             </p>
             <p>
-              The paper uses a real-world South China Sea sound-speed field dataset with 2920 samples over a full year, sampled 8 times per day. The corresponding transmission-loss labels are generated with the RAM acoustic solver. The dataset is split into 2336 training samples and 584 test samples using a fixed random seed.
+              The main configuration uses a 200-Hz source at 50-m depth and a 199-by-800 grid
+              covering ranges of 0-40 km and depths of 0-200 m. All values below are reported
+              manuscript results; no experiments were rerun for this website update.
             </p>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Main comparison results; scroll horizontally on small screens">
+              <table>
+                <caption>Main comparison under the revised monthly blocked protocol.</caption>
+                <thead>
+                  <tr><th scope="col">Model</th><th scope="col">RMSE (dB) &#8595;</th><th scope="col">Relative L2 &#8595;</th><th scope="col">SSIM &#8593;</th><th scope="col">PCC &#8593;</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Baseline FNO</th><td>4.15</td><td>0.052</td><td>0.787</td><td>0.952</td></tr>
+                  <tr><th scope="row">Concat-Scalar</th><td>4.22</td><td>0.053</td><td>0.781</td><td>0.951</td></tr>
+                  <tr><th scope="row">Concat-PE</th><td>4.77</td><td>0.059</td><td>0.734</td><td>0.938</td></tr>
+                  <tr><th scope="row">FNM</th><td>4.42</td><td>0.055</td><td>0.755</td><td>0.947</td></tr>
+                  <tr><th scope="row">Low-rank HyperFNO</th><td>4.14</td><td>0.052</td><td>0.787</td><td>0.952</td></tr>
+                  <tr class="highlight"><th scope="row">STFM-FNO</th><td>3.95</td><td>0.049</td><td>0.800</td><td>0.956</td></tr>
+                </tbody>
+              </table>
+            </div>
             <p>
-              TAM-FNO is compared with three variants that share the same FNO backbone: a static 2D-FNO baseline without temporal input, a scalar-time concatenation model, and a Fourier-encoding concatenation model. The evaluation reports RMSE, relative L2 error, SSIM, and Pearson correlation, covering both numerical error and spatial-structure fidelity.
-            </p>
-            <p>
-              TAM-FNO achieves the best reported value on all four metrics. Its RMSE is 1.9642 dB, compared with 2.3249 dB for the strongest non-FiLM baseline, which is about a 15.5% reduction. Fig. 2 gives a visual example: TAM-FNO preserves the transmission-loss pattern while producing a cleaner absolute-error map.
+              STFM-FNO reduces RMSE by 0.20 dB, approximately 5%, relative to Baseline FNO.
+              These results replace the earlier random-split results and use a different evaluation protocol.
             </p>
           </div>
           <figure class="figure results">
-            <img src="assets/fig2_tl_visuals.png" alt="Fig. 2. Transmission-loss predictions and absolute error maps for ground truth, baseline models, and TAM-FNO.">
+            <img src="assets/fig2_tl_visuals.png" loading="lazy" alt="Revised acoustic-field comparison using RAM reference TL, model estimates, and error maps.">
             <figcaption>
-              Fig. 2. Visualization of generated transmission losses. TAM-FNO keeps the predicted field closer to the ground truth and shows a cleaner absolute-error map in this selected case. The paper reports the best overall metrics for TAM-FNO, including about 15.5% lower RMSE than the strongest non-FiLM baseline.
+              Acoustic-field comparison from the revised manuscript under the monthly blocked protocol.
             </figcaption>
           </figure>
+          <div class="content">
+            <h3>Operating-Frequency Change</h3>
+            <p>
+              Both Baseline FNO and STFM-FNO are retrained on the 100-Hz dataset using the
+              same splitting and training settings. Their RMSEs are 2.27 and 2.12 dB, respectively.
+              This experiment evaluates the method in another frequency configuration, not
+              zero-shot transfer of a model trained at 200 Hz.
+            </p>
+
+            <h3>Alternative Temporal Encodings</h3>
+            <p>
+              The ablation compares generic fixed frequencies, learned frequencies, and
+              prescribed daily/yearly time scales while holding the architecture and splitting
+              strategy fixed. RMSE is averaged over three runs.
+            </p>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Temporal encoding ablation results">
+              <table>
+                <caption>The three temporal encodings give comparable performance.</caption>
+                <thead><tr><th scope="col">Temporal encoding</th><th scope="col">RMSE (dB) &#8595;</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Generic-Fourier-FiLM</th><td>3.96</td></tr>
+                  <tr><th scope="row">Learned-frequency-FiLM</th><td>3.91</td></tr>
+                  <tr><th scope="row">Daily-and-yearly Fourier encoding</th><td>3.90</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>First-block Feature Interception</h3>
+            <p>
+              To show the temporal branch's direct effect, the study compares first-block
+              features for the same held-out SSF at winter and summer time indices. The
+              pre-modulation features remain similar, whereas the modulated features change
+              with the supplied time. This is a model-level probe of learned temporal conditioning.
+            </p>
+          </div>
+          <figure class="figure results">
+            <img src="assets/feature_interception.png" loading="lazy" alt="First-block latent features before and after modulation for a fixed SSF with winter and summer time indices.">
+            <figcaption>
+              Feature interception with the SSF held fixed shows the temporal branch's effect on latent spatial features.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="release">
+        <div class="container">
+          <h2 class="section-title">Code Release Status</h2>
+          <div class="content">
+            <p>
+              The project was originally released as TAM-FNO. Repository URLs, package and
+              environment names, and the <code>tam_fno_*</code> modules are retained for compatibility.
+              The public release contains the core model and its preprocessing, training,
+              and evaluation entry points.
+            </p>
+            <div class="release-note">
+              <p>
+                <strong>The current public scripts still use the legacy random split:
+                2,336 training and 584 test samples.</strong> They do not implement the revised
+                2,144/584/192 monthly blocked protocol. The updated tables above describe the
+                manuscript experiments, not results directly reproducible with the default public commands.
+              </p>
+              <p>
+                Comparison-model runners, revised split manifests, data, checkpoints, normalizers,
+                and result archives are not included. This documentation update does not change
+                the training code. See the <a href="https://github.com/yufeila/TAM-FNO-Underwater-Acoustic-Prediction#code-release-and-reproduction-status">README</a>
+                for setup and release details.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="acknowledgments">
+        <div class="container">
+          <h2 class="section-title">Acknowledgments</h2>
+          <div class="content">
+            <p>
+              This work was supported by the Zhejiang Provincial Natural Science Foundation of
+              China (LR26F010004), the National Natural Science Foundation of China (62622127,
+              62371418), the Fundamental Research Funds for the Central Universities
+              (226-2025-00168), and the Novo Nordisk Foundation (NNF24OC0089302).
+            </p>
+          </div>
         </div>
       </section>
     </main>
 
     <footer>
-      TAM-FNO Underwater Acoustic Prediction. Academic project page and code release.
+      STFM-FNO for Transmission Loss Estimation. Revised manuscript and academic code release.
     </footer>
   </body>
 </html>

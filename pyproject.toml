@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tam-fno-underwater-acoustic-prediction"
 version = "0.1.0"
-description = "Time-adaptive modulated Fourier Neural Operator for underwater acoustic prediction."
+description = "Spatio-temporal field-modulated Fourier neural operator for underwater acoustic transmission loss estimation."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

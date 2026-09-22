@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use this code, please cite the associated paper and this repository."
-title: "TAM-FNO Underwater Acoustic Prediction"
+message: "If you use this code, please cite the revised STFM-FNO manuscript linked in the README and this software."
+title: "STFM-FNO for Underwater Acoustic Transmission Loss Estimation"
 type: software
 authors:
   - family-names: Yang
